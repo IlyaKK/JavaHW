@@ -9,6 +9,8 @@ public class Main {
         changeArray();
         fillDiagonal();
         min_maxNumber();
+        System.out.println();
+        System.out.println(checkBalance(new int[]{2, 2, 2, 1, 3, 2, 11, 1}));
     }
 
     private static void invertArray() {
@@ -83,5 +85,20 @@ public class Main {
             }
         }
         System.out.printf("Минимальное число -%2d, максимальное число - %2d", min, max);
+    }
+
+    private static boolean checkBalance(int[] arr){
+        int sum1 = 0, sum2;
+        for(int i = 0; i < arr.length; i++){
+            sum1 = sum1 + arr[i];
+            sum2 = 0;
+            for(int j = i + 1; j < arr.length; j++){
+                sum2 = sum2 + arr[j];
+            }
+            if(sum1 == sum2){
+                return true;
+            }
+        }
+        return false;
     }
 }
