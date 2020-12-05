@@ -20,6 +20,7 @@ public class Guess {
                 break;
             default:
                 System.out.println("Повторите выбор ещё раз");
+                checkEnd();
         }
     }
 
