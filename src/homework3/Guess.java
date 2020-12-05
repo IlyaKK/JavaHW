@@ -24,22 +24,29 @@ public class Guess {
         }
     }
 
+    private static void checkAnswer(int ans){
+        int userAnswer = scanner.hasNextInt() ? scanner.nextInt() : 12;
+        if (userAnswer == ans) {
+             System.out.println("Поздравляю! Вы победили!");
+             checkEnd();
+             break;
+         } else if (userAnswer == 12) {
+            System.out.println("Вы ввели недопустимые символы, попробуйте ввести число ещё раз");
+            checkAnswer(ans);
+         } else if (userAnswer > ans) {
+             System.out.println("Вы ввели слишком большое число");
+         } else if (userAnswer < ans) {
+             System.out.println("Вы ввели слишком маленькое число");
+         }
+    }
+
     private static void start_game() {
         int answer = (int) (Math.random() * 10);
         final int NUMBER_OF_ATTEMPT = 3;
         int attempt = 0;
         while (true) {
             System.out.printf("Угадайте число от 0 до 9. Число оставшихся попыток %d%n", NUMBER_OF_ATTEMPT - attempt);
-            int userAnswer = scanner.hasNextInt() ? scanner.nextInt() : 12;
-            if (userAnswer == answer) {
-                System.out.println("Поздравляю! Вы победили!");
-                checkEnd();
-                break;
-            }else if (userAnswer > answer) {
-                System.out.println("Вы ввели слишком большое число");
-            } else if (userAnswer < answer) {
-                System.out.println("Вы ввели слишком маленькое число");
-            }
+            checkAnswer(answer);
 
             if(attempt == NUMBER_OF_ATTEMPT - 1){
                 System.out.printf("Превышено количество попыток. Вы проиграли. Правильный ответ %d.%n",answer);
