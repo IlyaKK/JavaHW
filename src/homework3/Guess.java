@@ -19,25 +19,8 @@ public class Guess {
                 start_game();
                 break;
             default:
-                System.out.println("Повторите выбор ещё раз");
-                checkEnd();
+                break;
         }
-    }
-
-    private static void checkAnswer(int ans){
-        int userAnswer = scanner.hasNextInt() ? scanner.nextInt() : 12;
-        if (userAnswer == ans) {
-             System.out.println("Поздравляю! Вы победили!");
-             checkEnd();
-             break;
-         } else if (userAnswer == 12) {
-            System.out.println("Вы ввели недопустимые символы, попробуйте ввести число ещё раз");
-            checkAnswer(ans);
-         } else if (userAnswer > ans) {
-             System.out.println("Вы ввели слишком большое число");
-         } else if (userAnswer < ans) {
-             System.out.println("Вы ввели слишком маленькое число");
-         }
     }
 
     private static void start_game() {
@@ -46,7 +29,16 @@ public class Guess {
         int attempt = 0;
         while (true) {
             System.out.printf("Угадайте число от 0 до 9. Число оставшихся попыток %d%n", NUMBER_OF_ATTEMPT - attempt);
-            checkAnswer(answer);
+            int userAnswer = scanner.nextInt();
+            if (userAnswer == answer) {
+                System.out.println("Поздравляю! Вы победили!");
+                checkEnd();
+                break;
+            } else if (userAnswer > answer) {
+                System.out.println("Вы ввели слишком большое число");
+            } else if (userAnswer < answer) {
+                System.out.println("Вы ввели слишком маленькое число");
+            }
 
             if(attempt == NUMBER_OF_ATTEMPT - 1){
                 System.out.printf("Превышено количество попыток. Вы проиграли. Правильный ответ %d.%n",answer);
