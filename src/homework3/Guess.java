@@ -11,15 +11,11 @@ public class Guess {
 
     private static void checkEnd(){
         System.out.println("Повторить игру?(1 – да / 0 – нет)");
-        int userAnswer = scanner.hasNextInt() ? scanner.nextInt() : 2;
-        switch (userAnswer){
-            case 0:
-                break;
-            case 1:
+        switch (scanner.next()){
+            case "0","нет":
+                System.exit(0);
+            case "1","да":
                 start_game();
-                break;
-            default:
-                break;
         }
     }
 
@@ -29,14 +25,22 @@ public class Guess {
         int attempt = 0;
         while (true) {
             System.out.printf("Угадайте число от 0 до 9. Число оставшихся попыток %d%n", NUMBER_OF_ATTEMPT - attempt);
-            int userAnswer = scanner.nextInt();
-            if (userAnswer == answer) {
+            int num;
+            if(scanner.hasNextInt()){
+                num = scanner.nextInt();
+            }else{
+                System.out.println("Вы ввели недопустимый символ");
+                scanner.next();
+                continue;
+            }
+
+            if (num == answer) {
                 System.out.println("Поздравляю! Вы победили!");
                 checkEnd();
                 break;
-            } else if (userAnswer > answer) {
+            } else if (num > answer) {
                 System.out.println("Вы ввели слишком большое число");
-            } else if (userAnswer < answer) {
+            } else if (num < answer) {
                 System.out.println("Вы ввели слишком маленькое число");
             }
 
