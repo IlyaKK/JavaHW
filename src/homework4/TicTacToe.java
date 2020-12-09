@@ -164,18 +164,32 @@ public class TicTacToe {
     }
 
     private static boolean checkWin(char symbol) {
-        if (map[0][0] == symbol && map[0][1] == symbol && map[0][2] == symbol) return true;
-        if (map[1][0] == symbol && map[1][1] == symbol && map[1][2] == symbol) return true;
-        if (map[2][0] == symbol && map[2][1] == symbol && map[2][2] == symbol) return true;
+        int rowCorrectAnswer;
+        int columnCorrectAnswer;
+        int diagonalLRCorrectAnswer = 0;
+        int diagonalRLCorrectAnswer = 0;
 
-        if (map[0][0] == symbol && map[1][0] == symbol && map[2][0] == symbol) return true;
-        if (map[0][1] == symbol && map[1][1] == symbol && map[2][1] == symbol) return true;
-        if (map[0][2] == symbol && map[1][2] == symbol && map[2][2] == symbol) return true;
+        for(int i = 0; i < SIZE; i++){
+            rowCorrectAnswer = 0;
+            columnCorrectAnswer = 0;
+            for(int j = 0; j < SIZE; j++){
+                if(map[i][j] == symbol){
+                    rowCorrectAnswer++;
+                }
+                if(map[j][i] == symbol){
+                    columnCorrectAnswer++;
+                }
+                if(i == j && map[i][j] == symbol){
+                    diagonalLRCorrectAnswer++;
+                }
+                if(i + j == SIZE - 1 && map[i][j] == symbol){
+                    diagonalRLCorrectAnswer++;
+                }
+            }
+            if(rowCorrectAnswer == SIZE || columnCorrectAnswer == SIZE || diagonalLRCorrectAnswer == SIZE || diagonalRLCorrectAnswer == SIZE)return true;
+        }
 
-        if (map[0][0] == symbol && map[1][1] == symbol && map[2][2] == symbol) return true;
-        if (map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol) return true;
-
-        return false;
+        return  false;
     }
 
     private static boolean isMapFull() {
