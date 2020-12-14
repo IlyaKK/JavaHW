@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
-    static final int SIZE = 3;
+    static final int SIZE = 5;
+    static final int WINNING_SERIES = 4;
 
     static final char DOT_EMPTY = '•';
     static final char DOT_HUMAN = 'X';
@@ -168,6 +169,7 @@ public class TicTacToe {
         int columnCorrectAnswer;
         int diagonalLRCorrectAnswer = 0;
         int diagonalRLCorrectAnswer = 0;
+        int sideDiagonalCorrectAnswer = 0;
 
         for(int i = 0; i < SIZE; i++){
             rowCorrectAnswer = 0;
@@ -175,18 +177,55 @@ public class TicTacToe {
             for(int j = 0; j < SIZE; j++){
                 if(map[i][j] == symbol){
                     rowCorrectAnswer++;
+                }else if(j > 0 && map[i][j - 1] == symbol && map[i][j] != symbol){
+                    rowCorrectAnswer--;
                 }
+
                 if(map[j][i] == symbol){
                     columnCorrectAnswer++;
+                }else if(i > 0 && map[j][i - 1] == symbol && map[j][i] != symbol){
+                    columnCorrectAnswer--;
                 }
+
                 if(i == j && map[i][j] == symbol){
                     diagonalLRCorrectAnswer++;
+                }else if(i > 0 && j > 0 && i == j && map[i-1][j-1] == symbol && map[i][j] != symbol){
+                    diagonalLRCorrectAnswer--;
                 }
+
                 if(i + j == SIZE - 1 && map[i][j] == symbol){
                     diagonalRLCorrectAnswer++;
+                }else if(i > 0 && j > 0 && i + j == SIZE - 1 && map[i-1][j-1] == symbol && map[i][j] != symbol){
+                    diagonalRLCorrectAnswer--;
+                }
+
+            }
+            if(rowCorrectAnswer >= WINNING_SERIES || columnCorrectAnswer >= WINNING_SERIES || diagonalLRCorrectAnswer >= WINNING_SERIES || diagonalRLCorrectAnswer >= WINNING_SERIES)return true;
+        }
+
+        int countSideDiagonal = SIZE-WINNING_SERIES;
+        for(int j = 1; j < countSideDiagonal+1;j++) {
+            sideDiagonalCorrectAnswer = 0;
+            for (int i = 0; i < SIZE-j; i++) {
+                if (map[i][i+j] == symbol || map[i+j][i] == symbol) {
+                    sideDiagonalCorrectAnswer++;
+                } else if (i > 0 && (map[i-1][i+j-1] == symbol || map[i+j-1][i-1] == symbol) && (map[i][i+j] != symbol || map[i+j][i] != symbol)) {
+                    sideDiagonalCorrectAnswer--;
                 }
             }
-            if(rowCorrectAnswer == SIZE || columnCorrectAnswer == SIZE || diagonalLRCorrectAnswer == SIZE || diagonalRLCorrectAnswer == SIZE)return true;
+            if(sideDiagonalCorrectAnswer >= WINNING_SERIES)return true;
+        }
+
+        for(int j = 1; j < countSideDiagonal+1;j++) {
+            sideDiagonalCorrectAnswer = 0;
+            for (int i = 0; i < SIZE-j; i++) {
+                if (map[i+j][SIZE-i-1] == symbol || map[i+j-1][SIZE-2-i] == symbol) {
+                    sideDiagonalCorrectAnswer++;
+                } else if (i > 0 && (map[i+j-1][SIZE-i] == symbol || map[i+j-2][SIZE-i-1] == symbol) && (map[i+j][SIZE-i-1] != symbol || map[i+j-1][SIZE-2-i] != symbol)) {
+                    sideDiagonalCorrectAnswer--;
+                }
+            }
+            if(sideDiagonalCorrectAnswer >= WINNING_SERIES)return true;
         }
 
         return  false;
