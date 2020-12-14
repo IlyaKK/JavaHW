@@ -169,7 +169,8 @@ public class TicTacToe {
         int columnCorrectAnswer;
         int diagonalLRCorrectAnswer = 0;
         int diagonalRLCorrectAnswer = 0;
-        int sideDiagonalCorrectAnswer = 0;
+        int sideUpDiagonalCorrectAnswer = 0;
+        int sideDownDiagonalCorrectAnswer = 0;
 
         for(int i = 0; i < SIZE; i++){
             rowCorrectAnswer = 0;
@@ -205,27 +206,41 @@ public class TicTacToe {
 
         int countSideDiagonal = SIZE-WINNING_SERIES;
         for(int j = 1; j < countSideDiagonal+1;j++) {
-            sideDiagonalCorrectAnswer = 0;
+            sideUpDiagonalCorrectAnswer = 0;
+            sideDownDiagonalCorrectAnswer = 0;
             for (int i = 0; i < SIZE-j; i++) {
-                if (map[i][i+j] == symbol || map[i+j][i] == symbol) {
-                    sideDiagonalCorrectAnswer++;
-                } else if (i > 0 && (map[i-1][i+j-1] == symbol || map[i+j-1][i-1] == symbol) && (map[i][i+j] != symbol || map[i+j][i] != symbol)) {
-                    sideDiagonalCorrectAnswer--;
+                if (map[i][i+j] == symbol) {
+                    sideUpDiagonalCorrectAnswer++;
+                } else if (i > 0 && map[i-1][i+j-1] == symbol && map[i][i+j] != symbol) {
+                    sideUpDiagonalCorrectAnswer--;
+                }
+
+                if (map[i+j][i] == symbol) {
+                    sideDownDiagonalCorrectAnswer++;
+                } else if (i > 0 && map[i+j-1][i-1] == symbol && map[i+j][i] != symbol) {
+                    sideDownDiagonalCorrectAnswer--;
                 }
             }
-            if(sideDiagonalCorrectAnswer >= WINNING_SERIES)return true;
+            if(sideUpDiagonalCorrectAnswer >= WINNING_SERIES || sideDownDiagonalCorrectAnswer >= WINNING_SERIES)return true;
         }
 
         for(int j = 1; j < countSideDiagonal+1;j++) {
-            sideDiagonalCorrectAnswer = 0;
+            sideUpDiagonalCorrectAnswer = 0;
+            sideDownDiagonalCorrectAnswer = 0;
             for (int i = 0; i < SIZE-j; i++) {
-                if (map[i+j][SIZE-i-1] == symbol || map[i+j-1][SIZE-2-i] == symbol) {
-                    sideDiagonalCorrectAnswer++;
-                } else if (i > 0 && (map[i+j-1][SIZE-i] == symbol || map[i+j-2][SIZE-i-1] == symbol) && (map[i+j][SIZE-i-1] != symbol || map[i+j-1][SIZE-2-i] != symbol)) {
-                    sideDiagonalCorrectAnswer--;
+                if (map[i+j-1][SIZE-2-i] == symbol) {
+                    sideUpDiagonalCorrectAnswer++;
+                } else if (i > 0 && map[i+j-2][SIZE-i-1] == symbol && map[i+j-1][SIZE-2-i] != symbol) {
+                    sideUpDiagonalCorrectAnswer--;
+                }
+
+                if (map[i+j][SIZE-i-1] == symbol) {
+                    sideDownDiagonalCorrectAnswer++;
+                } else if (i > 0 && map[i+j-1][SIZE-i] == symbol && map[i+j][SIZE-i-1] != symbol) {
+                    sideDownDiagonalCorrectAnswer--;
                 }
             }
-            if(sideDiagonalCorrectAnswer >= WINNING_SERIES)return true;
+            if(sideUpDiagonalCorrectAnswer >= WINNING_SERIES || sideDownDiagonalCorrectAnswer >= WINNING_SERIES)return true;
         }
 
         return  false;
