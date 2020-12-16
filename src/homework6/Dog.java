@@ -12,6 +12,11 @@ public class Dog extends Animal {
         countDog++;
     }
 
+    public Dog(String name, int limit_run, int limit_swim){
+        super(name, limit_run, limit_swim);
+        countDog++;
+    }
+
     public static int getCountDog() {
         return countDog;
     }

@@ -7,19 +7,20 @@ public class Main {
         Animal catBarsik = new Cat("Барсик");
         Animal catMurzik = new Cat("Мурзик");
 
-        dogBobik.run(40.5);
-        dogMarkiz.run(600);
-        dogMarkiz.run();
-        dogBobik.swim(6);
-        dogMarkiz.swim(15);
-        dogMarkiz.swim();
+        Animal dogBobik1 = new Dog("Бобик", 400, 5);
+        Animal dogMarkiz1 = new Dog("Маркиз", 600, 15);
+        Animal catBarsik1 = new Cat("Барсик", 300, 5);
+        Animal catMurzik1 = new Cat("Мурзик", 100, 10);
 
-        catBarsik.run(160);
-        catBarsik.run(500);
-        catMurzik.run();
-        catBarsik.swim(6);
-        catBarsik.swim(15);
-        catMurzik.swim();
+
+        Animal[] animals = {dogBobik, dogBobik1, dogMarkiz, dogMarkiz1, catBarsik, catBarsik1, catMurzik, catMurzik1};
+
+        for (Animal animal : animals) {
+            animal.run(500);
+            animal.swim(10);
+            animal.run();
+            animal.swim();
+        }
 
         System.out.printf("%nКоличество котов: %d%nКоличество псов: %d%nКоличество животных: %d%n", Cat.getCountCat(), Dog.getCountDog(), Animal.getCountAnimals());
     }

@@ -13,6 +13,12 @@ public class Cat extends Animal {
         countCat++;
     }
 
+    public Cat(String name, int limit_run, int limit_swim){
+        super(name, limit_run, limit_swim);
+        this.name = name;
+        countCat++;
+    }
+
     private void message() {
         System.out.println(name + " не умеет плавать");
     }

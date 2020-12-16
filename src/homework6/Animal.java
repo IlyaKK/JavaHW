@@ -10,10 +10,16 @@ public abstract class Animal {
         countAnimals++;
     }
 
+    public Animal(String name, int limit_run, int limit_swim){
+        this(name);
+        this.limit_run = limit_run;
+        this.limit_swim = limit_swim;
+    }
+
 
     private boolean checkRun(double obstacleLength, int limitLength) {
         if (obstacleLength > limitLength) {
-            System.out.println("Достигнут предел моего бега");
+            System.out.printf("Достигнут предел бега %s%n", name);
             return false;
         } else if (obstacleLength < 0) {
             System.out.println("Введите корректные значения");
@@ -40,7 +46,7 @@ public abstract class Animal {
 
     private boolean checkSwim(double obstacleLength, int limitLength) {
         if(obstacleLength > limitLength) {
-            System.out.println("Достигнут предел моего плавания");
+            System.out.printf("Достигнут предел плавания %s%n", name);
             return false;
         } else if (obstacleLength < 0) {
             System.out.println("Введите корректные значения");
